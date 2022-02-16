@@ -1,0 +1,16 @@
+---
+- hosts: localhost
+  tasks:
+    - name: install apache
+      yum:
+        name: httpd
+        state: present
+      notify:
+        - replace index.html
+
+  handlers:
+  - name: replace index.html
+    copy:
+      dest: /var/www/html/index.html
+      content: "Hi I am AWS EC2 instance {{ ansible_hostname }}\n"
+    register: index_file
