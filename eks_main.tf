@@ -82,12 +82,12 @@ resource "aws_eks_node_group" "node" {
   node_group_name = "node_group_demo"
   node_role_arn   = aws_iam_role.eks_nodes.arn
   subnet_ids      = ["subnet-e9190a81", "subnet-d866eda3", "subnet-03e0a14f"]
-  key_name        = var.key
 
   scaling_config {
     desired_size = 1
     max_size     = 2
     min_size     = 1
+    key_name     = "admin"
   }
   # Ensure that IAM Role permissions are created before and deleted after EKS Node Group handling.
   # Otherwise, EKS will not be able to properly delete EC2 Instances and Elastic Network Interfaces.
