@@ -1,4 +1,4 @@
-# To spinup EKS_cluster in AWS, we write up the stages with the steps in pipeline method:-
+//To spinup EKS_cluster in AWS, we write up the stages with the steps in pipeline method:-
   
  pipeline{
     agent any
