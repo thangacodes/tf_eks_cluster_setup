@@ -82,6 +82,7 @@ resource "aws_eks_node_group" "node" {
   node_group_name = "node_group_demo"
   node_role_arn   = aws_iam_role.eks_nodes.arn
   subnet_ids      = ["subnet-e9190a81", "subnet-d866eda3", "subnet-03e0a14f"]
+  key_name        = var.key
 
   scaling_config {
     desired_size = 1
