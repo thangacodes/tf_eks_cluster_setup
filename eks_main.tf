@@ -38,7 +38,7 @@ resource "aws_eks_cluster" "aws_eks" {
   tags = {
     Name         = "EKS_demo"
     CreationDate = "04/05/2020"
-    Owner        = "Thangadurai.Murugan@dell.com"
+    Owner        = "Thangadurai.Murugan@example.com"
     Environment  = "Development"
     Region       = "ap-south-1"
   }
