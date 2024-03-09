@@ -15,19 +15,26 @@ This project is tested and deployed in sandbox using Jenkins declarative method 
    aws eks update-kubeconfig --region ap-south-1 --name tf-eks-cluster --role-arn arn:aws:iam::XXYYYXYXYXYXYXY:role/ec2-admin-role
 
 
-In order to set up EKS cluster, the following policies must be added to the IAM ROLE:
+## In order to set up EKS cluster, the following policies must be added to the IAM ROLE:
 
-AmazonEKSClusterPolicy
-AmazonEKSServicePolicy
-AmazonEKSVPCResourceController
+   AmazonEKSClusterPolicy
 
-In order to set up EKS WORKERNODE, the following policies must be added to the IAM ROLE.
+   AmazonEKSServicePolicy
 
-AmazonEKSWorkerNodePolicy
-AmazonEKS_CNI_Policy
-AmazonEC2ContainerRegistryReadOnly
+   AmazonEKSVPCResourceController
+
+## In order to set up EKS WORKERNODE, the following policies must be added to the IAM ROLE.
+
+   AmazonEKSWorkerNodePolicy
+
+   AmazonEKS_CNI_Policy
+
+   AmazonEC2ContainerRegistryReadOnly
 
 ## Script Folder Structure:
+
+a) jenkins-eks
+b) terraform-eks
 
 main.tf --> Main configuration file containing resouce definition
 
