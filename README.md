@@ -34,6 +34,7 @@ This project is tested and deployed in sandbox using Jenkins declarative method 
 ## Script Folder Structure:
 
 a) jenkins-eks
+
 b) terraform-eks
 
 main.tf --> Main configuration file containing resouce definition
