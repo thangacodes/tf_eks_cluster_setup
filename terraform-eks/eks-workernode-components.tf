@@ -44,7 +44,7 @@ resource "aws_eks_node_group" "node-group" {
   cluster_name    = aws_eks_cluster.aws-eks.name
   node_group_name = "tf_worker_node_group"
   node_role_arn   = aws_iam_role.tf_eks_workernode_role.arn
-  subnet_ids      = ["subnet-070392f02684d57b0", "subnet-0493e4cd4178db942", "subnet-05c89932c5d61fc4a"]
+  subnet_ids      = ["subnet-01a3ea7e1f72afd59", "subnet-05c89932c5d61fc4a"]
   disk_size       = 20
   instance_types  = ["t3.small"]
   remote_access {

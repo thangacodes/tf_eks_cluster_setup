@@ -45,7 +45,7 @@ resource "aws_eks_cluster" "aws-eks" {
   name     = "tf-eks-cluster"
   role_arn = aws_iam_role.tf_eks_cluster_role.arn
   vpc_config {
-    subnet_ids         = ["subnet-070392f02684d57b0", "subnet-0493e4cd4178db942", "subnet-05c89932c5d61fc4a"]
+    subnet_ids         = ["subnet-01a3ea7e1f72afd59", "subnet-05c89932c5d61fc4a"]
     security_group_ids = [aws_security_group.eks-workernode-sg.id]
   }
   tags = {
