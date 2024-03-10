@@ -9,6 +9,7 @@ resource "aws_instance" "jump-server" {
   subnet_id                   = "subnet-03e0a14f"
   user_data                   = file("initscript.sh")
   availability_zone           = "ap-south-1a"
+  iam_instance_profile        = "ec2-admin-role"
   tags = {
     Name         = "Bastion-Server"
     Owner        = "thangadurai.murugan@example.com"
