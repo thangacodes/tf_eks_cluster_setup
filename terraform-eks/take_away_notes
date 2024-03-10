@@ -1,0 +1,6 @@
+## In order to provision or delete a particular resource from bunch of terraform scripts file,
+we use target command.
+
+# terraform plan -target=aws_instance.jump-serverclear
+# terraform apply --auto-approve -target=aws_instance.jump-serverclear
+# terraform destroy --auto-approve -target=aws_instance.jump-serverclear
