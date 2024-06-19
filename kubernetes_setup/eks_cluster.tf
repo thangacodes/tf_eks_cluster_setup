@@ -8,7 +8,7 @@ module "eks" {
   enable_irsa = true
 
   tags = {
-    cluster = "practice-demo-cluster"
+    cluster = "Thangadurai-eks-${random_string.suffix.result}"
   }
 
   vpc_id = module.vpc.vpc_id
