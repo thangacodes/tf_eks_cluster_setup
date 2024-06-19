@@ -1,30 +1,30 @@
 pipeline {
     agent any
 	  environment {
-	        AWS_ACCESS_KEY_ID     = credentials('AWS_ACCESS_KEY_ID')
-		      AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
-		      AWS_DEFAULT_REGION    = "us-east-1"
+	    AWS_ACCESS_KEY_ID     = credentials('AWS_ACCESS_KEY_ID')
+		AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
+		AWS_DEFAULT_REGION    = "us-east-1"
 	}
   stages {
     stage('Checkout SCM'){
        steps {
 	        script{
-		         checkout scmGit(branches: [[name: '*/PSDART-0000']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/thangacodes/tf_eks_cluster_setup.git']])
-		         }         
-          }
-      }
+		    checkout scmGit(branches: [[name: '*/PSDART-0000']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/thangacodes/tf_eks_cluster_setup.git']])
+		}         
+        }
+    }
       stage('InfraBuild') {
          steps {
             script {
                 dir('kubernetes_setup') {
                   echo "navigating to the terraform scripts folder"
-			            input(message: "Do you want to execute terraform scripts?", ok: "Yes")
+		  input(message: "Do you want to execute terraform scripts?", ok: "Yes")
                   sh '''
-			               terraform init
-                     terraform fmt
-                     terraform validate
-			              terraform apply --auto-approve
-                  '''
+			terraform init
+                        terraform fmt
+                        terraform validate
+			terraform apply --auto-approve
+                    '''
                     }
                 }
             }
@@ -33,47 +33,47 @@ pipeline {
 	        steps{
 	          script {
 		            dir('super-service'){
-			          echo "Image build and pushing to docker hub repo.."
-			          input(message: "Do you want to proceed?", ok: "Yes")
-			          sh '''
-                  tree
-			            docker build -t dotnet .
-			            docker tag dotnet durai5050/dotnet:latest
-			            docker tag dotnet durai5050/dotnet:${BUILD_NUMBER}
-                  docker images
-			            '''
-			            }
-		          }
-		       }
+			        echo "Image build and pushing to docker hub repo.."
+			        input(message: "Do you want to proceed?", ok: "Yes")
+			        sh '''
+                                tree
+			        docker build -t dotnet .
+			        docker tag dotnet durai5050/dotnet:latest
+			        docker tag dotnet durai5050/dotnet:${BUILD_NUMBER}
+                                docker images
+			        '''
+			        }
+		        }
+		    }
 	}
 	stage('Push DockerImage to DockerHub'){
             steps{
                 withCredentials([usernamePassword(credentialsId: 'docker_cred', passwordVariable: 'docker_credPassword', usernameVariable: 'docker_credUsername')]){
-                    sh "docker login -u ${env.docker_credUsername} -p ${env.docker_credPassword}"
+                    sh 'docker login -u ${env.docker_credUsername} -p ${env.docker_credPassword}'
                     sh 'docker image push durai5050/dotnet:latest'
                     sh 'docker image push durai5050/dotnet:${BUILD_NUMBER}'
                 }
             }
-        }
+    }
 	stage('App_Deployment'){
 	    steps{
 		     script {
 		        dir('kubefiles'){
-	          input(message: "Do you want to deploy objects in K8's?", ok: "Yes")
+	                input(message: "Do you want to deploy objects in K8's?", ok: "Yes")
 		        sh '''
-			      echo "kubectl version checking.."
-            kubectl version --client
-			      echo "Updating kubeconfig file.."
-		        aws eks update-kubeconfig --name project_eks_cluster
-			      echo "NameSpace creation.."
-			      kubectl apply -f ns.yaml
-            kubectl get ns
-			      echo "Service like ALB creation.."
-			      kubectl apply -f service.yaml
-		    '''
+			    echo "kubectl version checking.."
+                            kubectl version --client
+			    echo "Updating kubeconfig file.."
+		            aws eks update-kubeconfig --name project_eks_cluster
+			    echo "NameSpace creation.."
+			    kubectl apply -f ns.yaml
+                            kubectl get ns
+			    echo "Service like ALB creation.."
+			    kubectl apply -f service.yaml
+		        '''
 		    }
 	    }
-	  }
 	}
+}
 }
 }
