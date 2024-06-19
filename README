@@ -1,21 +1,22 @@
 ## EKS setup via Terraform:
-This project is tested and deployed in sandbox using Jenkins CICD
-After installing kubectl on the Bastion or Jump server where you should connect your EKS cluster via kubectl, follow these steps:
+This project is tested and deployed in a Sandbox AWS account on an EC2 machine, which acts as Jenkins with a bastion server. After installing Kubectl binary on the Bastion, where you should connect your EKS cluster via Kubectl, follow these steps:
 The default Kubeconfig path is,
-$ /home/ec2-user/.kube/config  //ec2-user profile profile
+$ $HOME/.kube/config  /$HOME is nothing ec2-user profile
+$ echo $HOME
+$ cat config     
 
-## For EKS clusters, update the kubeconfig file. 
-   $ aws eks update-kubeconfig --region ap-south-1 --name tf-eks-cluster
+## Kubeconfig to store cluster authentication information for kubectl
+$ aws eks update-kubeconfig --region ap-south-1 --name tf-eks-cluster
 
-## In addition, if you have an IAM EKS role with assum policy enabled, you can run the following command,
-   $ aws eks update-kubeconfig --region ap-south-1 --name tf-eks-cluster --role-arn arn:aws:iam::XXYYYXYXYXYXYXY:role/ec2-admin-role
+## In addition, if you have an IAM role with assume policy enabled, you can run the following command:
+$ aws eks update-kubeconfig --region ap-south-1 --name tf-eks-cluster --role-arn arn:aws:iam::ACCOUNT-ID:role/ec2-admin-role
 
-## In order to set up EKS cluster, the following policies must be added to the IAM ROLE:
+## In order to setup EKS Cluster, the following policies must be added to the IAM role:
    AmazonEKSClusterPolicy
    AmazonEKSServicePolicy
    AmazonEKSVPCResourceController
 
-## In order to set up EKS WORKERNODE, the following policies must be added to the IAM ROLE.
+## In order to setup EKS WorkerNode, the following policies must be added to the IAM role:
    AmazonEKSWorkerNodePolicy
    AmazonEKS_CNI_Policy
    AmazonEC2ContainerRegistryReadOnly
