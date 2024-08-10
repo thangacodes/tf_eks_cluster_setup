@@ -1,29 +1,28 @@
-
-resource "aws_security_group" "all_worker_mgmt" {
-  name_prefix = "all_worker_management"
+resource "aws_security_group" "node_group_sgp" {
+  name        = "${local.common_name}-node-SGP"
+  description = "Allow TLS inbound traffic"
   vpc_id      = module.vpc.vpc_id
-}
 
-resource "aws_security_group_rule" "all_worker_mgmt_ingress" {
-  description       = "allow inbound traffic from eks"
-  from_port         = 0
-  protocol          = "-1"
-  to_port           = 0
-  security_group_id = aws_security_group.all_worker_mgmt.id
-  type              = "ingress"
-  cidr_blocks = [
-    "10.0.0.0/8",
-    "172.16.0.0/12",
-    "192.168.0.0/16",
-  ]
-}
+  ingress {
+    description = "Allow nodes to communicate with each other"
+    from_port   = 0
+    to_port     = 65535
+    protocol    = "-1"
+  }
+  ingress {
+    from_port = 1025
+    to_port   = 65535
+    protocol  = "tcp"
+  }
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
 
-resource "aws_security_group_rule" "all_worker_mgmt_egress" {
-  description       = "allow outbound traffic to anywhere"
-  from_port         = 0
-  protocol          = "-1"
-  security_group_id = aws_security_group.all_worker_mgmt.id
-  to_port           = 0
-  type              = "egress"
-  cidr_blocks       = ["0.0.0.0/0"]
+  tags = {
+    Name                                                 = "${local.common_name}-node-SGP"
+    "kubernetes.io/cluster/${local.common_name}-cluster" = "owned"
+  }
 }
