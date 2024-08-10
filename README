@@ -1,6 +1,8 @@
 ## EKS setup via Terraform:
+
 This project is tested and deployed in a Sandbox AWS account on an EC2 machine, which acts as Jenkins with a bastion server. After installing Kubectl binary on the Bastion, where you should connect your EKS cluster via Kubectl, follow these steps:
 The default Kubeconfig path is,
+
 $ $HOME/.kube/config  /$HOME is nothing ec2-user profile
 $ echo $HOME
 $ cat config     
@@ -21,10 +23,11 @@ $ aws eks update-kubeconfig --region ap-south-1 --name tf-eks-cluster --role-arn
    * AmazonEKS_CNI_Policy
    * AmazonEC2ContainerRegistryReadOnly
 
-=======================================================================================================
+# =====================================================================================================###
+#                                                                                                        #
+# To run the following commands, you'll need to have AWSCLI and KUBECTL installed on your local machine  #
+# =======================================================================================================#
 
-To run the following commands, you'll need to have AWSCLI and KUBECTL installed on your local machine.
-=======================================================================================================
 # aws eks list-clusters --region ap-south-1 --output table                // list out aws eks cluster via awscli in Tabular format
 # echo $KUBECONFIG
 # aws eks update-kubeconfig --name $CLUSTER_NAME                        // updating kubeconfi context via awscli to login
