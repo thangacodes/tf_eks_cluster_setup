@@ -20,3 +20,25 @@ $ aws eks update-kubeconfig --region ap-south-1 --name tf-eks-cluster --role-arn
    AmazonEKSWorkerNodePolicy
    AmazonEKS_CNI_Policy
    AmazonEC2ContainerRegistryReadOnly
+==============================================================================================================================================================
+
+To run the following commands, you'll need to have AWSCLI and KUBECTL installed on your local machine.
+========================================================================================================
+# aws eks list-clusters --region ap-south-1 --output table                // list out aws eks cluster via awscli in Tabular format
+# echo $KUBECONFIG
+# aws eks update-kubeconfig --name $CLUSTER_NAME                        // updating kubeconfi context via awscli to login
+# cat ~/.kube/config                                                   // viewing the content of config file sits in user $HOME_DIR
+# kubectl get nodes                                                   // to list out the worker nodes in eks associated
+# kubectl create deployment nginx --image=nginx                      // deployment creation
+# kubectl scale deployment nginx --replicas=3                       // scale up the deployment
+# kubectl get deployment                                           // get deployment object  
+# kubectl get deployment, pod                                     // one command shows both deployment and pod objects exist
+# kubectl expose deployment nginx --type=LoadBalancer --port=80  // deployment object exposing via ALB 
+# kubectl get service                                           // to get the running services 
+# kubectl delete svc nginx                                     // deleting the running service is called nginx
+# kubectl delete deploy nginx                                 // deleting the deployment called nginx 
+# kubectl get ns                                             // to check namespace 
+# kubectl exec -it nginx-bf5d5cf98-cgbvf -- /bin/bash      // getting into the container
+# apt-get update -y && apt install -y vim                 // update apt repository in the container and install vim editor
+# cd /usr/share/nginx/html/index.html                    // This is Debian Ubuntu's default location for NGINX static page configuration
+# vi index.html                                         // Update the static index.html file to point to this file, so that your web content will be updated/displayed when the ALB accesses the endpoint.
