@@ -12,18 +12,19 @@ $ aws eks update-kubeconfig --region ap-south-1 --name tf-eks-cluster
 $ aws eks update-kubeconfig --region ap-south-1 --name tf-eks-cluster --role-arn arn:aws:iam::ACCOUNT-ID:role/ec2-admin-role
 
 ## In order to setup EKS Cluster, the following policies must be added to the IAM role:
-   AmazonEKSClusterPolicy
-   AmazonEKSServicePolicy
-   AmazonEKSVPCResourceController
+   * AmazonEKSClusterPolicy
+   * AmazonEKSServicePolicy
+   * AmazonEKSVPCResourceController
 
 ## In order to setup EKS WorkerNode, the following policies must be added to the IAM role:
-   AmazonEKSWorkerNodePolicy
-   AmazonEKS_CNI_Policy
-   AmazonEC2ContainerRegistryReadOnly
-==============================================================================================================================================================
+   * AmazonEKSWorkerNodePolicy
+   * AmazonEKS_CNI_Policy
+   * AmazonEC2ContainerRegistryReadOnly
+
+=======================================================================================================
 
 To run the following commands, you'll need to have AWSCLI and KUBECTL installed on your local machine.
-========================================================================================================
+=======================================================================================================
 # aws eks list-clusters --region ap-south-1 --output table                // list out aws eks cluster via awscli in Tabular format
 # echo $KUBECONFIG
 # aws eks update-kubeconfig --name $CLUSTER_NAME                        // updating kubeconfi context via awscli to login
