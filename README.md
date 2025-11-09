@@ -1,6 +1,9 @@
+```bash
+
 ## EKS setup via Terraform:
 
-This project is tested and deployed in a Sandbox AWS account on an EC2 machine, which acts as Jenkins with a bastion server. After installing Kubectl binary on the Bastion, where you should connect your EKS cluster via Kubectl, follow these steps:
+This project is tested and deployed in a Sandbox AWS account on an EC2 machine, which acts as Jenkins with a bastion server.
+After installing Kubectl binary on the Bastion, where you should connect your EKS cluster via Kubectl, follow these steps:
 The default Kubeconfig path is,
 
 $ $HOME/.kube/config  /$HOME is nothing ec2-user profile
@@ -49,3 +52,5 @@ $ aws eks update-kubeconfig --region ap-south-1 --name tf-eks-cluster --role-arn
 # apt-get update -y && apt install -y vim                 // update apt repository in the container and install vim editor
 # cd /usr/share/nginx/html/index.html                    // This is Debian Ubuntu's default location for NGINX static page configuration
 # vi index.html                                         // Update the static index.html file to point to this file, so that your web content will be updated/displayed when the ALB accesses the endpoint.
+
+```
